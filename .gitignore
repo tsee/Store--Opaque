@@ -1,0 +1,9 @@
+.*.swp
+.*.swo
+*.bs
+*.o
+Makefile
+Makefile.old
+Makefile.bak
+META.*
+MYMETA.*
