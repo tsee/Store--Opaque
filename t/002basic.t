@@ -11,7 +11,6 @@ our @ISA = ('Store::Opaque');
 sub new {
   my $class = shift;
   my $obj = $class->SUPER::new;
-  $obj->{"not hidden"} = 1;
   return $obj;
 }
 
@@ -46,7 +45,6 @@ foreach (1..$n) {
   is($opaque->get_hidden_info(), 'foobar');
   
   my $dump = Dumper($opaque);
-  ok($dump =~ /not hidden/);
   ok($dump !~ /cannot see this/);
   ok($dump !~ /foobar/);
 }

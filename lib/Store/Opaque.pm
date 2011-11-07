@@ -4,19 +4,10 @@ use 5.008001;
 use strict;
 use warnings;
 
-use XS::Object::Magic;
-
 our $VERSION = '0.01';
 
 require XSLoader;
 XSLoader::load('Store::Opaque', $VERSION);
-
-sub new {
-  my $class = shift;
-  my $self = bless {}, $class;
-  $self->make_opaque_storage;
-  return $self;
-}
 
 1;
 __END__

@@ -4,29 +4,27 @@
 
 #include "ppport.h"
 
+typedef SV MyOpaqueObject;
 
 MODULE = Store::Opaque		PACKAGE = Store::Opaque		
 
-void
-make_opaque_storage(self)
-    SV *self
-  PREINIT:
-    HV* guts;
+
+MyOpaqueObject*
+new(CLASS)
+    char *CLASS
   CODE:
-    guts = newHV();
-    xs_object_magic_attach_struct(aTHX_ SvRV(self), guts);
+    RETVAL = (SV*)newHV();
+  OUTPUT:
+    RETVAL
 
 SV*
 _get(self, key)
-    SV* self
+    MyOpaqueObject* self
     SV* key
   PREINIT:
-    HV* guts;
     HE* entry;
-  INIT:
-    guts = (HV*)xs_object_magic_get_struct_rv(aTHX_ self);
   CODE:
-    entry = hv_fetch_ent(guts, key, 0, 0);
+    entry = hv_fetch_ent((HV*)self, key, 0, 0);
     if (entry != NULL)
       RETVAL = newSVsv( HeVAL(entry) );
     else
@@ -35,23 +33,16 @@ _get(self, key)
 
 void
 _set(self, key, value)
-    SV* self
+    MyOpaqueObject* self
     SV* key
     SV* value
-  PREINIT:
-    HV* guts;
-  INIT:
-    guts = (HV*)xs_object_magic_get_struct_rv(aTHX_ self);
   CODE:
-    hv_store_ent(guts, key, newSVsv(value), 0);
+    hv_store_ent((HV*)self, key, newSVsv(value), 0);
 
 
 void
 DESTROY(self)
-    SV* self
-  PREINIT:
-    HV* guts;
+    MyOpaqueObject* self
   CODE:
-    guts = (HV*)xs_object_magic_get_struct_rv(aTHX_ self); /* delegate to C api */
-    SvREFCNT_dec((SV*)guts);
+    SvREFCNT_dec((HV*)self);
 
