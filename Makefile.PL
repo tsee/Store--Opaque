@@ -7,6 +7,7 @@ WriteMakefile(
     VERSION_FROM      => 'lib/Store/Opaque.pm', # finds $VERSION
     PREREQ_PM         => {
       'Data::Dumper' => 0,
+      'Test::More'   => 0.88,
     },
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/Store/Opaque.pm', # retrieve abstract from module
