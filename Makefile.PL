@@ -7,7 +7,6 @@ WriteMakefile(
     VERSION_FROM      => 'lib/Store/Opaque.pm', # finds $VERSION
     PREREQ_PM         => {
       'Data::Dumper' => 0,
-      'XS::Object::Magic' => '0.04',
     },
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/Store/Opaque.pm', # retrieve abstract from module
